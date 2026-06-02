@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PrintlyHive – Premium Printable Digital Downloads</title>
+<meta name="description" content="Instant-download printable art, party games, wall decor, and more. Beautifully designed, print-ready files for every occasion." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #F0D98B;
+    --gold-dark: #8B6914;
+    --black: #111009;
+    --off-white: #FAF8F3;
+    --warm-gray: #E8E4D9;
+    --text-muted: #7A7060;
+    --card-bg: #FFFFFF;
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--off-white);
+    color: var(--black);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 5%;
+    background: rgba(250,248,243,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--warm-gray);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--black);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+
+  nav ul {
+    list-style: none;
+    display: flex; gap: 2rem;
+  }
+  nav a {
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--black); }
+
+  .nav-cta {
+    background: var(--black) !important;
+    color: var(--gold-light) !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 2px;
+    font-weight: 500 !important;
+    letter-spacing: 0.06em !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--gold-dark) !important; color: #fff !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 8rem 5% 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 100%, rgba(201,168,76,0.12) 0%, transparent 70%),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 39px,
+        rgba(201,168,76,0.06) 39px,
+        rgba(201,168,76,0.06) 40px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 39px,
+        rgba(201,168,76,0.06) 39px,
+        rgba(201,168,76,0.06) 40px
+      );
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.1s forwards;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    max-width: 800px;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.25s forwards;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold-dark);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    max-width: 480px;
+    margin: 0 auto 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.55s forwards;
+  }
+
+  .btn-primary {
+    background: var(--black);
+    color: var(--gold-light);
+    padding: 0.85rem 2rem;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-dark); transform: translateY(-1px); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--black);
+    padding: 0.85rem 2rem;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--warm-gray);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--gold); transform: translateY(-1px); }
+
+  .hero-badges {
+    display: flex; gap: 2rem; align-items: center; justify-content: center;
+    margin-top: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.7s forwards;
+  }
+  .badge {
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .badge::before {
+    content: '✦';
+    color: var(--gold);
+    font-size: 0.6rem;
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap {
+    overflow: hidden;
+    border-top: 1px solid var(--warm-gray);
+    border-bottom: 1px solid var(--warm-gray);
+    background: var(--black);
+    padding: 0.85rem 0;
+  }
+  .marquee-track {
+    display: flex; gap: 3rem;
+    white-space: nowrap;
+    animation: marquee 25s linear infinite;
+  }
+  .marquee-item {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--gold-light);
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+  .marquee-sep { color: var(--gold); opacity: 0.5; }
+
+  /* ── CATEGORIES ── */
+  .section { padding: 6rem 5%; max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .section-sub {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    max-width: 500px;
+    margin-bottom: 3rem;
+  }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .cat-card {
+    background: var(--card-bg);
+    border: 1px solid var(--warm-gray);
+    border-radius: 4px;
+    padding: 2rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .cat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.07);
+  }
+  .cat-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .cat-card:hover::after { transform: scaleX(1); }
+
+  .cat-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .cat-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  .cat-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .cat-count {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+  }
+
+  /* ── WHY US ── */
+  .why-section {
+    background: var(--black);
+    color: var(--off-white);
+    padding: 6rem 5%;
+  }
+  .why-inner { max-width: 1200px; margin: 0 auto; }
+  .why-section .section-label { color: var(--gold-light); }
+  .why-section .section-title { color: var(--off-white); }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .why-item { border-left: 1px solid rgba(201,168,76,0.3); padding-left: 1.5rem; }
+  .why-num {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .why-item h4 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    color: var(--off-white);
+  }
+  .why-item p {
+    font-size: 0.85rem;
+    color: rgba(250,248,243,0.55);
+    line-height: 1.6;
+  }
+
+  /* ── FEATURED / PRODUCTS ── */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .product-card {
+    background: var(--card-bg);
+    border: 1px solid var(--warm-gray);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  }
+
+  .product-thumb {
+    height: 180px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .product-thumb.bg1 { background: #F5F0E8; }
+  .product-thumb.bg2 { background: #EAF0F5; }
+  .product-thumb.bg3 { background: #F0EAF5; }
+  .product-thumb.bg4 { background: #EAF5EA; }
+  .product-thumb.bg5 { background: #F5EAE8; }
+  .product-thumb.bg6 { background: #F5F5E8; }
+
+  .product-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--black);
+    color: var(--gold-light);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+  }
+
+  .product-info { padding: 1.25rem; }
+  .product-info h4 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  .product-info p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+  .product-price {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--gold-dark);
+  }
+
+  /* ── TESTIMONIAL ── */
+  .testimonial-section {
+    background: var(--warm-gray);
+    padding: 5rem 5%;
+  }
+  .testimonial-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .testimonial-quote {
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.4;
+    margin-bottom: 1.5rem;
+    color: var(--black);
+  }
+  .testimonial-author {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .stars { color: var(--gold); font-size: 1rem; margin-bottom: 1rem; }
+
+  /* ── CTA BANNER ── */
+  .cta-banner {
+    background: var(--black);
+    padding: 5rem 5%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-banner::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 50% 80% at 50% 100%, rgba(201,168,76,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-banner h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 400;
+    color: var(--off-white);
+    margin-bottom: 1rem;
+  }
+  .cta-banner h2 em { color: var(--gold); font-style: italic; }
+  .cta-banner p {
+    font-size: 0.95rem;
+    color: rgba(250,248,243,0.6);
+    margin-bottom: 2.5rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--warm-gray);
+    padding: 2.5rem 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--black);
+  }
+  .footer-logo span { color: var(--gold); }
+  footer p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--black); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    nav ul { display: none; }
+    .hero-badges { flex-direction: column; gap: 0.75rem; }
+    .hero-actions { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Printly<span>Hive</span></a>
+  <ul>
+    <li><a href="#categories">Shop</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="https://www.etsy.com/shop/printlyhive" target="_blank" class="nav-cta">Visit Etsy Shop ↗</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Instant Digital Downloads</p>
+  <h1>Beautiful prints<br />for <em>every</em> occasion</h1>
+  <p class="hero-sub">Print-ready digital files designed with care — for parties, walls, celebrations, and everyday life.</p>
+  <div class="hero-actions">
+    <a href="https://www.etsy.com/shop/printlyhive" target="_blank" class="btn-primary">Shop on Etsy ↗</a>
+    <a href="#categories" class="btn-secondary">Browse Categories</a>
+  </div>
+  <div class="hero-badges">
+    <span class="badge">Instant Download</span>
+    <span class="badge">Print at Home</span>
+    <span class="badge">Commercial-Friendly</span>
+    <span class="badge">High Resolution</span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">Party Games</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">Wall Art</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">Baby Shower</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">Invitations</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">Novelty Posters</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">Seasonal Prints</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">Party Games</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">Wall Art</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">Baby Shower</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">Invitations</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">Novelty Posters</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">Seasonal Prints</span>
+    <span class="marquee-sep">✦</span>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<div id="categories">
+  <section class="section">
+    <p class="section-label">What We Offer</p>
+    <h2 class="section-title">Designed for real life,<br />downloaded in seconds</h2>
+    <p class="section-sub">Every file is print-ready at high resolution. No waiting, no shipping — just beautiful, usable designs.</p>
+
+    <div class="categories-grid">
+      <a href="https://www.etsy.com/shop/printlyhive" target="_blank" class="cat-card">
+        <span class="cat-icon">🎉</span>
+        <h3>Party Games</h3>
+        <p>Baby showers, bingo, trivia, drinking games and more — ready to print and play.</p>
+        <span class="cat-count">Shop Now →</span>
+      </a>
+      <a href="https://www.etsy.com/shop/printlyhive" target="_blank" class="cat-card">
+        <span class="cat-icon">🖼️</span>
+        <h3>Wall Art</h3>
+        <p>Minimalist prints, skylines, and decorative art for living rooms, offices, and nurseries.</p>
+        <span class="cat-count">Shop Now →</span>
+      </a>
+      <a href="https://www.etsy.com/shop/printlyhive" target="_blank" class="cat-card">
+        <span class="cat-icon">✉️</span>
+        <h3>Invitations</h3>
+        <p>Boho, modern, and classic invitation templates for birthdays, baby showers, and events.</p>
+        <span class="cat-count">Shop Now →</span>
+      </a>
+      <a href="https://www.etsy.com/shop/printlyhive" target="_blank" class="cat-card">
+        <span class="cat-icon">📅</span>
+        <h3>Posters & Trackers</h3>
+        <p>Sports brackets, novelty posters, calendars, and seasonal wall decor for any space.</p>
+        <span class="cat-count">Shop Now →</span>
+      </a>
+    </div>
+  </section>
+</div>
+
+<!-- WHY US -->
+<div class="why-section" id="about">
+  <div class="why-inner">
+    <p class="section-label">Why PrintlyHive</p>
+    <h2 class="section-title" style="color:var(--off-white);">Print-ready quality,<br />zero hassle</h2>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-num">300</div>
+        <h4>DPI Resolution</h4>
+        <p>Every file is exported at professional print quality so colors and details look sharp at any size.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-num">0s</div>
+        <h4>Wait Time</h4>
+        <p>Files are delivered instantly after purchase. Download, print, and enjoy — all in minutes.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-num">Multi</div>
+        <h4>Size Formats</h4>
+        <p>Most listings include multiple print sizes so you can use your home printer or a print shop.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-num">★★★★★</div>
+        <h4>Happy Customers</h4>
+        <p>Designed with real buyers in mind — clear files, easy instructions, and responsive support.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURED -->
+<section class="section">
+  <p class="section-label">Popular Downloads</p>
+  <h2 class="section-title">Customer favorites</h2>
+  <p class="section-sub">A few of our most-loved designs — browse the full shop for the complete collection.</p>
+
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-thumb bg1">
+        <span class="product-badge">Bestseller</span>
+        🍼
+      </div>
+      <div class="product-info">
+        <h4>Baby Shower Game Bundle</h4>
+        <p>10 printable party games — bingo, trivia, word scramble & more</p>
+        <span class="product-price">From $4.99</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-thumb bg2">
+        <span class="product-badge">Popular</span>
+        🏙️
+      </div>
+      <div class="product-info">
+        <h4>Minimalist Skyline Art</h4>
+        <p>Kathmandu, New York, Paris and more — clean line art wall prints</p>
+        <span class="product-price">From $3.99</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-thumb bg3">
+        <span class="product-badge">New</span>
+        ⚽
+      </div>
+      <div class="product-info">
+        <h4>World Cup Bracket Poster</h4>
+        <p>Full-tournament bracket — print and fill in as the matches unfold</p>
+        <span class="product-price">From $2.99</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-thumb bg4">
+        🌸
+      </div>
+      <div class="product-info">
+        <h4>Boho Birthday Invitation</h4>
+        <p>Editable Canva template — boho floral style for any age</p>
+        <span class="product-price">From $3.99</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-thumb bg5">
+        🐾
+      </div>
+      <div class="product-info">
+        <h4>Custom Pet Line Drawing</h4>
+        <p>Minimalist SVG-style pet portrait — perfect for framing</p>
+        <span class="product-price">From $4.99</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-thumb bg6">
+        🍺
+      </div>
+      <div class="product-info">
+        <h4>Drinking Game Posters</h4>
+        <p>Funny, bold posters for game nights and parties</p>
+        <span class="product-price">From $2.99</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<div class="testimonial-section">
+  <div class="testimonial-inner">
+    <div class="stars">★★★★★</div>
+    <p class="testimonial-quote">"Downloaded, printed, and had the whole baby shower set up in 20 minutes. The designs are gorgeous — everyone kept asking where I got them."</p>
+    <p class="testimonial-author">— Verified Etsy Buyer</p>
+  </div>
+</div>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <h2>Ready to print<br /><em>something beautiful?</em></h2>
+  <p>Visit our Etsy shop for the full collection — new designs added regularly.</p>
+  <a href="https://www.etsy.com/shop/printlyhive" target="_blank" class="btn-primary" style="font-size:0.9rem; padding:1rem 2.5rem;">
+    Shop PrintlyHive on Etsy ↗
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Printly<span>Hive</span></div>
+  <p>© 2026 PrintlyHive · Digital Downloads</p>
+  <div class="footer-links">
+    <a href="https://www.etsy.com/shop/printlyhive" target="_blank">Etsy Shop</a>
+    <a href="https://www.etsy.com/shop/artbyvmkarki" target="_blank">artbyvmkarki</a>
+  </div>
+</footer>
+
+</body>
+</html>
